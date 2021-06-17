@@ -94,20 +94,16 @@
 	<div id="submit-button">
 		<input id="Go" type="button" value="Go" onclick="setYoutubeVideo()"/>
 	</div>
-	<div id="submit-button">
-		<input id="Go" type="button" value="Go2" onclick="abc()"/>
-	</div>
-
+<!--
 	<div id="debug">
 	<h3>
 	This text is for debugging purposes. 
 	</h3>
 	</div>
-
+-->
 
 	<script>
 		function setYoutubeVideo() {
-			document.getElementById('debug').innerText="before read operation";
 			//from https://stackoverflow.com/questions/23762822/javascript-loading-csv-file-into-an-array
 			$.ajax({
     				url: "https://raw.githubusercontent.com/nathankchow/nathankchow.github.io/master/video_catalog.csv",
@@ -119,7 +115,6 @@
 	
 				});
 
-			
 			var songs = document.getElementsByName("song");
 			for(i=0;i<songs.length;i++) {
 				if (songs[i].checked){
@@ -127,7 +122,6 @@
 				}
 			}
 
-			
 			var idol1s = document.getElementById("idol1");
 			var idol1 = idol1s.options[idol1s.selectedIndex].value.toLowerCase();
 
@@ -142,7 +136,6 @@
 
 			var idol5s = document.getElementById("idol5");
 			var idol5 = idol5s.options[idol5s.selectedIndex].value.toLowerCase();
-
 
 			var youtube_title = "デレステ " + song + " " + idol1 + " " + idol2 + " " + idol3 + " " + idol4 + " " + idol5;
 			
