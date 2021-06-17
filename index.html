@@ -1,119 +1,167 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
+	<html>
 
-<style>
-body {
-	background-color:rgb(32,28,28);
-	color:rgb(169,169,169) ;
-	font-family: sans-serif;
-}
+	<style>
+	body {
+		background-color:rgb(32,28,28);
+		color:rgb(169,169,169) ;
+		font-family: sans-serif;
+	}
 
-</style>
-<center>
-<body>
+	</style>
 
-<h2>Work in progress...</h2>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="jquery.csv.min.js"></script>
+	</head>
 
-<div id="video-player">
+	<center>
+	<body>
 
-	<iframe width="900" height="450" allow="fullscreen;"
-		id = "embed-video" src="https://www.youtube.com/embed/F5o494pRTPs">
-	</iframe>
+	<h2>Work in progress...</h2>
 
-</div>
+	<div id="video-player">
 
-<div id="song-selector">
-	<label for="Default (Nagi solo)"> 
-		<input id="Default (Nagi solo)" type="radio" name="song">Default (Nagi solo)
-	</label>
-	<label for="つぼみ"> 
-		<input id="つぼみ" type="radio" name="song">つぼみ
-	</label>
-	<label for="夢をのぞいたら"> 
-		<input id="夢をのぞいたら" type="radio" name="song">夢をのぞいたら
-	</label>
-</div>
+		<iframe width="900" height="450" allow="fullscreen;"
+			id = "embed-video" src="https://www.youtube.com/embed/F5o494pRTPs">
+		</iframe>
 
-<div id="idol-selector">
-	<select name="idol1" id="idol1">
-		<option value=""></option>
-		<option value="Arisu">Arisu</option>
-		<option value="Koharu">Koharu</option>
-		<option value="Yoshino">Yoshino</option>
-		<option value="Yumi">Yumi</option>
-		<option value="Yukimi">Yukimi</option>
-	</select>
+	</div>
+
+	<div id="song-selector">
+		<label for="つぼみ"> 
+			<input id="つぼみ" type="radio" name="song" value="つぼみ" checked='checked'>つぼみ
+		</label>
+		<label for="Default (Nagi solo)"> 
+			<input id="Default (Nagi solo)" type="radio" name="song" value="default">Default (Koharu Nagi solo)
+		</label>
+
+		<!--
+		<label for="夢をのぞいたら"> 
+			<input id="夢をのぞいたら" type="radio" name="song" value="夢をのぞいたら">夢をのぞいたら
+		</label>
+		-->
+	</div>
+
+	<div id="idol-selector">
+		<select name="idol1" id="idol1">
+			<option value=""></option>
+			<option value="Arisu" selected='selected'>Arisu</option>
+			<option value="Koharu">Koharu</option>
+			<option value="Yoshino">Yoshino</option>
+			<option value="Yukimi">Yukimi</option>
+			<option value="Yumi">Yumi</option>
+		</select>
+		
+		<select name="idol2" id="idol2">
+			<option value=""></option>
+			<option value="Arisu">Arisu</option>
+			<option value="Koharu" selected='selected'>Koharu</option>
+			<option value="Yoshino">Yoshino</option>
+			<option value="Yukimi">Yukimi</option>
+			<option value="Yumi">Yumi</option>
+		</select>
+
+		<select name="idol3" id="idol3">
+			<option value=""></option>
+			<option value="Arisu">Arisu</option>
+			<option value="Koharu">Koharu</option>
+			<option value="Yoshino" selected='selected'>Yoshino</option>
+			<option value="Yukimi">Yukimi</option>
+			<option value="Yumi">Yumi</option>
+		</select>
+
+		<select name="idol4" id="idol4">
+			<option value=""></option>
+			<option value="Arisu">Arisu</option>
+			<option value="Koharu">Koharu</option>
+			<option value="Yoshino">Yoshino</option>
+			<option value="Yukimi" selected='selected'>Yukimi</option>
+			<option value="Yumi">Yumi</option>
+		</select>
+
+		<select name="idol5" id="idol5">
+			<option value=""></option>
+			<option value="Arisu">Arisu</option>
+			<option value="Koharu">Koharu</option>
+			<option value="Yoshino">Yoshino</option>
+			<option value="Yukimi">Yukimi</option>
+			<option value="Yumi" selected='selected'>Yumi</option>
+		</select>
+	</div>
+
+	<div id="submit-button">
+		<input id="Go" type="button" value="Go" onclick="setYoutubeVideo()"/>
+	</div>
+	<div id="submit-button">
+		<input id="Go" type="button" value="Go2" onclick="abc()"/>
+	</div>
+
+	<div id="debug">
+	<h3>
+	This text is for debugging purposes. 
+	</h3>
+	</div>
+
+
+	<script>
+		function setYoutubeVideo() {
+			document.getElementById('debug').innerText="before read operation";
+			//from https://stackoverflow.com/questions/23762822/javascript-loading-csv-file-into-an-array
+			$.ajax({
+    				url: "https://raw.githubusercontent.com/nathankchow/nathankchow.github.io/master/video_catalog.csv",
+    				async: false,
+    				success: function (csvd) {
+        			data = $.csv.toArrays(csvd);
+    				},
+    				dataType: "text",
 	
-	<select name="idol2" id="idol2">
-		<option value=""></option>
-		<option value="Arisu">Arisu</option>
-		<option value="Koharu">Koharu</option>
-		<option value="Yoshino">Yoshino</option>
-		<option value="Yumi">Yumi</option>
-		<option value="Yukimi">Yukimi</option>
-	</select>
+				});
 
-	<select name="idol3" id="idol3">
-		<option value=""></option>
-		<option value="Arisu">Arisu</option>
-		<option value="Koharu">Koharu</option>
-		<option value="Yoshino">Yoshino</option>
-		<option value="Yumi">Yumi</option>
-		<option value="Yukimi">Yukimi</option>
-	</select>
+			
+			var songs = document.getElementsByName("song");
+			for(i=0;i<songs.length;i++) {
+				if (songs[i].checked){
+					var song = songs[i].value
+				}
+			}
 
-	<select name="idol4" id="idol4">
-		<option value=""></option>
-		<option value="Arisu">Arisu</option>
-		<option value="Koharu">Koharu</option>
-		<option value="Yoshino">Yoshino</option>
-		<option value="Yumi">Yumi</option>
-		<option value="Yukimi">Yukimi</option>
-	</select>
+			
+			var idol1s = document.getElementById("idol1");
+			var idol1 = idol1s.options[idol1s.selectedIndex].value.toLowerCase();
 
-	<select name="idol5" id="idol5">
-		<option value=""></option>
-		<option value="Arisu">Arisu</option>
-		<option value="Koharu">Koharu</option>
-		<option value="Yoshino">Yoshino</option>
-		<option value="Yukimi">Yukimi</option>
-		<option value="Yumi">Yumi</option>
-	</select>
-</div>
+			var idol2s = document.getElementById("idol2");
+			var idol2 = idol2s.options[idol2s.selectedIndex].value.toLowerCase();
 
-<div id="submit-button">
-	<input id="clickMe" type="button" value="change song" onclick="document.getElementById('embed-video').src='https://www.youtube.com/embed/AFzE-m99fEw'" />
+			var idol3s = document.getElementById("idol3");
+			var idol3 = idol3s.options[idol3s.selectedIndex].value.toLowerCase();
+
+			var idol4s = document.getElementById("idol4");
+			var idol4 = idol4s.options[idol4s.selectedIndex].value.toLowerCase();
+
+			var idol5s = document.getElementById("idol5");
+			var idol5 = idol5s.options[idol5s.selectedIndex].value.toLowerCase();
 
 
-</div>
-<!--> 
-<script>
-	function getYoutubeVideo() {
-		var song = document.getElementById("song");
-		var idol1 = document.getElementById("idol1").toLowerCase();
-		var idol2 = document.getElementById("idol2").toLowerCase();
-		var idol3 = document.getElementById("idol3").toLowerCase();
-		var idol4 = document.getElementById("idol4").toLowerCase();
-		var idol5 = document.getElementById("idol5").toLowerCase();
-	
-	var youtube_title = "デレステ " + song + " " + idol1 + " " + idol2 + " " + idol3 + " " + idol4 + " " + idol5;
-	if (youtube_title == "デレステ つぼみ arisu koharu yoshino yukimi yumi") {
-		var youtubeId = "AFzE-m99fEw";
-	}
-	else {
-		var youtubeId = "F5o494pRTPs"
-	}
-	var youtubeId = "AFzE-m99fEw";
-	var youtubeLink = "https://www.youtube.com/embed/" + youtubeId
-	document.getElementById("embed-video").src = youtubeLink
-}
-</script>
-<script>
-	function setYoutubeVideo2() {
-	document.getElementById("embed-video").src = "https://www.youtube.com/embed/AFzE-m99fEw"
-	}
-</script>
-<-->
+			var youtube_title = "デレステ " + song + " " + idol1 + " " + idol2 + " " + idol3 + " " + idol4 + " " + idol5;
+			
+			for (i=0;i<data.length;i++) {
+				
+				if (youtube_title == data[i][0]) {
+					var youtubeId = data[i][1];
+					break;
+				}
+				else {
+					var youtubeId = 'F5o494pRTPs'
+				}
+				
+			}
+			var youtubeLink = "https://www.youtube.com/embed/" + youtubeId
+			document.getElementById("embed-video").src = youtubeLink		
+		}
+	</script>
 
-</center>
-</body>
-</html>
+	</center>
+	</body>
+	</html>
