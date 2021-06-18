@@ -1,2 +1,2 @@
 # nathankchow.github.io
-Embedded video player for Starlight Stage MVs
+Sample embedded video player for Starlight Stage MVs
