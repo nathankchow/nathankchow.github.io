@@ -31,17 +31,21 @@
 
 	<div id="song-selector">
 		<label for="つぼみ"> 
-			<input id="つぼみ" type="radio" name="song" value="つぼみ" checked='checked'>つぼみ
+			<input id="song1" type="radio" name="song" value="つぼみ" checked='checked' onchange="grayOut()">つぼみ
+		</label>
+		<label for="恋が咲く季節"> 
+			<input id="song2" type="radio" name="song" value="恋が咲く季節" onchange="grayOut()";>恋が咲く季節
+		</label>
+		<label for="夢をのぞいたら（for BEST3 VERSION）"> 
+			<input id="song3" type="radio" name="song" onchange="grayOut()" value="夢をのぞいたら（for BEST3 VERSION）" onchange=grayOut();>夢をのぞいたら（for BEST3 VERSION）
+		</label>
+		<label for="とんでいっちゃいたいの"> 
+			<input id="song4" type="radio" name="song" onchange="grayOut()" value="とんでいっちゃいたいの">とんでいっちゃいたいの
 		</label>
 		<label for="Default (Nagi solo)"> 
-			<input id="Default (Nagi solo)" type="radio" name="song" value="default">Default (Koharu Nagi solo)
+			<input id="song5" type="radio" name="song" onchange="grayOut()" value="default">Default (Koharu Nagi solo)
 		</label>
 
-		<!--
-		<label for="夢をのぞいたら"> 
-			<input id="夢をのぞいたら" type="radio" name="song" value="夢をのぞいたら">夢をのぞいたら
-		</label>
-		-->
 	</div>
 
 	<div id="idol-selector">
@@ -93,8 +97,6 @@
 	<script>
 		//function for automatically changing idol names so no duplicates occur 
 		function selectcontrol(number) {
-
-
 			var changed_idols = document.getElementById("idol" + number);
 			var idol = changed_idols.options[changed_idols.selectedIndex].value;
 	
@@ -125,13 +127,9 @@
 
 			
 			var existing_idols = idol1 + idol2 + idol3 + idol4 + idol5;
-			console.log(existing_idols)
 			var all_idols = ['arisu','koharu','yoshino','yukimi','yumi']
 			all_idols.forEach(function (item, index){
-				console.log(existing_idols.includes(item))
 				if (existing_idols.includes(item) == false) {
-					console.log('i do actually work!')
-					console.log(wrong_index + item)//
 					$('#idol' + wrong_index).val(item[0].toUpperCase() + item.slice(1)).change();
 				}
 			})
@@ -190,8 +188,56 @@
 				}
 				
 			}
-			var youtubeLink = "https://www.youtube.com/embed/" + youtubeId
-			document.getElementById("embed-video").src = youtubeLink		
+			
+			//band-aid fix for 3-idol songs for convenience, will rewrite for efficiency if necessary 
+			if (youtubeId == 'F5o494pRTPs') {
+				var youtube_title = "デレステ " + song + " " + idol2 + " " + idol3 + " " + idol4; 
+				for (i=0;i<data.length;i++) {
+				
+					if (youtube_title == data[i][0]) {
+						var youtubeId = data[i][1];
+						break;
+					}
+					else {
+					var youtubeId = 'F5o494pRTPs'
+					}
+				}
+			}
+
+			if (youtubeId == 'F5o494pRTPs') {
+				var youtube_title = "デレステ " + song + " " + idol2 + " " + idol3; //and for 2-idol songs  
+				for (i=0;i<data.length;i++) {
+				
+					if (youtube_title == data[i][0]) {
+						var youtubeId = data[i][1];
+						break;
+					}
+					else {
+					var youtubeId = 'F5o494pRTPs'
+					}
+				}
+			}
+			var youtubeLink = "https://www.youtube.com/embed/" + youtubeId;
+			document.getElementById("embed-video").src = youtubeLink;			
+		}
+
+		function grayOut(){
+			var song_names = document.getElementsByName("song");
+			for (i=1;i<song_names.length+1;i++) {
+				if (document.getElementById('song' + i).checked) {
+					song_name = document.getElementById('song' + i).value;
+				};
+			};
+			//bandaid fix, todo-> to implement function that checks catalog for number of singers in a song 
+			if (song_name == "夢をのぞいたら（for BEST3 VERSION）"|| song_name == "とんでいっちゃいたいの") {
+				$("#idol1").attr("disabled", true);
+				$("#idol5").attr("disabled", true);
+			}
+			else {
+				$("#idol1").attr("disabled", false);
+				$("#idol5").attr("disabled", false);
+
+			}
 		}
 	</script>
 
