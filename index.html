@@ -45,8 +45,7 @@
 	</div>
 
 	<div id="idol-selector">
-		<select name="idol1" id="idol1">
-			<option value=""></option>
+		<select name="idol1" id="idol1" onchange='selectcontrol("1")'>
 			<option value="Arisu" selected='selected'>Arisu</option>
 			<option value="Koharu">Koharu</option>
 			<option value="Yoshino">Yoshino</option>
@@ -54,8 +53,7 @@
 			<option value="Yumi">Yumi</option>
 		</select>
 		
-		<select name="idol2" id="idol2">
-			<option value=""></option>
+		<select name="idol2" id="idol2" onchange='selectcontrol("2")'>
 			<option value="Arisu">Arisu</option>
 			<option value="Koharu" selected='selected'>Koharu</option>
 			<option value="Yoshino">Yoshino</option>
@@ -63,8 +61,7 @@
 			<option value="Yumi">Yumi</option>
 		</select>
 
-		<select name="idol3" id="idol3">
-			<option value=""></option>
+		<select name="idol3" id="idol3" onchange='selectcontrol("3")'>
 			<option value="Arisu">Arisu</option>
 			<option value="Koharu">Koharu</option>
 			<option value="Yoshino" selected='selected'>Yoshino</option>
@@ -72,8 +69,7 @@
 			<option value="Yumi">Yumi</option>
 		</select>
 
-		<select name="idol4" id="idol4">
-			<option value=""></option>
+		<select name="idol4" id="idol4" onchange='selectcontrol("4")'>
 			<option value="Arisu">Arisu</option>
 			<option value="Koharu">Koharu</option>
 			<option value="Yoshino">Yoshino</option>
@@ -81,8 +77,7 @@
 			<option value="Yumi">Yumi</option>
 		</select>
 
-		<select name="idol5" id="idol5">
-			<option value=""></option>
+		<select name="idol5" id="idol5" onchange='selectcontrol("5")'>
 			<option value="Arisu">Arisu</option>
 			<option value="Koharu">Koharu</option>
 			<option value="Yoshino">Yoshino</option>
@@ -94,14 +89,65 @@
 	<div id="submit-button">
 		<input id="Go" type="button" value="Go" onclick="setYoutubeVideo()"/>
 	</div>
-<!--
+
 	<div id="debug">
 	<h3>
 	This text is for debugging purposes. 
 	</h3>
 	</div>
--->
 
+	<script>
+		//function for automatically changing idol names so no duplicates occur 
+		function selectcontrol(number) {
+
+
+			var changed_idols = document.getElementById("idol" + number);
+			var idol = changed_idols.options[changed_idols.selectedIndex].value;
+	
+			for (i=1;i<6;i++){
+				if('' + i != number){
+					var other_idols = document.getElementById("idol" + i);
+					var other_idol = other_idols.options[other_idols.selectedIndex].value
+					if (other_idol==idol) {
+						var wrong_index = i;
+						break;
+					}
+				}
+			}
+			var idol1s = document.getElementById("idol1");
+			var idol1 = idol1s.options[idol1s.selectedIndex].value.toLowerCase();
+
+			var idol2s = document.getElementById("idol2");
+			var idol2 = idol2s.options[idol2s.selectedIndex].value.toLowerCase();
+
+			var idol3s = document.getElementById("idol3");
+			var idol3 = idol3s.options[idol3s.selectedIndex].value.toLowerCase();
+
+			var idol4s = document.getElementById("idol4");
+			var idol4 = idol4s.options[idol4s.selectedIndex].value.toLowerCase();
+
+			var idol5s = document.getElementById("idol5");
+			var idol5 = idol5s.options[idol5s.selectedIndex].value.toLowerCase();
+
+			
+			var existing_idols = idol1 + idol2 + idol3 + idol4 + idol5;
+			console.log(existing_idols)
+			var all_idols = ['arisu','koharu','yoshino','yukimi','yumi']
+			all_idols.forEach(function (item, index){
+				console.log(existing_idols.includes(item))
+				if (existing_idols.includes(item) == false) {
+					console.log('i do actually work!')
+					console.log(wrong_index + item)//
+					$('#idol' + wrong_index).val(item[0].toUpperCase() + item.slice(1)).change();
+				}
+			})
+			
+		}
+		</script>
+
+
+		
+	
 	<script>
 		function setYoutubeVideo() {
 			//from https://stackoverflow.com/questions/23762822/javascript-loading-csv-file-into-an-array
@@ -126,7 +172,7 @@
 			var idol1 = idol1s.options[idol1s.selectedIndex].value.toLowerCase();
 
 			var idol2s = document.getElementById("idol2");
-			var idol2 = idol2s.options[idol2s.selectedIndex].value.toLowerCase();
+			var idol2 = idol2s.options[idol2s.selectedIndex].value.toLowerCase();	
 
 			var idol3s = document.getElementById("idol3");
 			var idol3 = idol3s.options[idol3s.selectedIndex].value.toLowerCase();
