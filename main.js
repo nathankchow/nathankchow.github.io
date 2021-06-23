@@ -190,16 +190,47 @@
 		}
 
 		function grayOut(){
+			//get song name
 			var songs = document.getElementById("song");
-			var song = songs.options[songs.selectedIndex].value;
-			//bandaid fix, todo-> to implement function that checks catalog for number of singers in a song 
-			if (song == "夢をのぞいたら（for BEST3 VERSION）"|| song == "とんでいっちゃいたいの") {
-				$("#idol1").attr("disabled", true);
-				$("#idol5").attr("disabled", true);
+			var target_song_name = songs.options[songs.selectedIndex].value;
+			//identify number of singers in song
+			$.ajax({
+				url: "https://raw.githubusercontent.com/nathankchow/nathankchow.github.io/master/video_catalog.csv",
+				async: false,
+				success: function (csvd) {
+				data = $.csv.toArrays(csvd);
+				},
+				dataType: "text",
+			});
+			var name_counter = 0;
+			var idol_names = ['arisu','koharu','yoshino','yukimi','yumi'];
+			for (i=1;i<data.length;i++) { 
+				if (data[i][0].includes(target_song_name) == true) {
+					for (j=0;j<idol_names.length;j++){
+						if (data[i][0].includes(idol_names[j])){
+							name_counter = name_counter + 1;
+						}
+					}
+					break
+				}
 			}
-			else {
-				$("#idol1").attr("disabled", false);
-				$("#idol5").attr("disabled", false);
+			order = [3,2,4,1,5];
+			for (i=0;i<name_counter;i++){
+				greyIndividual(order[i],false);
+			}
+			for (i=name_counter; i<5;i++){
+				greyIndividual(order[i],true)
+			}
 
-			}
 		}
+
+	function greyIndividual(number,bool) {
+		if (bool == true) {
+			$("#idol" + number).attr("disabled", true);
+			$("#img" + number).css("filter", "grayscale(100%)");
+		}
+		else{
+			$("#idol" + number).attr("disabled", false);
+			$("#img" + number).css("filter", "grayscale(0%)");
+		}
+	}
