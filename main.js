@@ -1,5 +1,5 @@
 		//function for automatically changing idol names so no duplicates occur 
-		function selectcontrol(number) {
+		function selectControl(number) {
 			var changed_idols = document.getElementById("idol" + number);
 			var idol = changed_idols.options[changed_idols.selectedIndex].value;
 	
@@ -60,8 +60,6 @@
 			document.getElementById("img3").src="./images/" + idol3 + ".png";
 			document.getElementById("img4").src="./images/" + idol4 + ".png";
 			document.getElementById("img5").src="./images/" + idol5 + ".png";
-
-
 		}
 
 
@@ -77,12 +75,8 @@
 	
 				});
 
-			var songs = document.getElementsByName("song");
-			for(i=0;i<songs.length;i++) {
-				if (songs[i].checked){
-					var song = songs[i].value
-				}
-			}
+			var songs = document.getElementById("song");
+			var song = songs.options[songs.selectedIndex].value;
 
 			var idol1s = document.getElementById("idol1");
 			var idol1 = idol1s.options[idol1s.selectedIndex].value.toLowerCase();
@@ -100,7 +94,7 @@
 			var idol5 = idol5s.options[idol5s.selectedIndex].value.toLowerCase();
 
 			var youtube_title = "デレステ " + song + " " + idol1 + " " + idol2 + " " + idol3 + " " + idol4 + " " + idol5;
-			
+			console.log(youtube_title)
 			for (i=0;i<data.length;i++) {
 				
 				if (youtube_title == data[i][0]) {
@@ -145,15 +139,61 @@
 			document.getElementById("embed-video").src = youtubeLink;			
 		}
 
+		function importSonglist() {
+			//import csv data 
+			$.ajax({
+				url: "https://raw.githubusercontent.com/nathankchow/nathankchow.github.io/master/video_catalog.csv",
+				async: false,
+				success: function (csvd) {
+				data = $.csv.toArrays(csvd);
+				},
+				dataType: "text",
+			});
+
+			//initialize an array containing all idol names
+			var idol_names = ['arisu','koharu','yoshino','yukimi','yumi'];
+
+			//process the csv data for song names
+			var song_names = []; 
+			for (i=1;i<data.length;i++) { //skip labels, reminder to change iteration endpoint from 5
+				var song_name = data[i][0];
+				song_name_list = song_name.split(" ");
+				for (j=2;j<song_name_list.length;j++) { //skip first item in list ("デレステ")
+					var is_idol_name = false
+					for (k=0;k<idol_names.length;k++){
+						if (song_name_list[j] == idol_names[k]) {
+							is_idol_name = true
+						}
+					}
+					if (is_idol_name == true) {
+						var end_index = j;
+						break
+					}
+				}
+				song_name_list = song_name_list.slice(1,end_index);
+				var actual_song_name = song_name_list.join(" ");
+
+				if (song_names.includes(actual_song_name) == false) { //make sure to append each unique song once only
+					song_names.push(actual_song_name);
+					var o = new Option(actual_song_name, actual_song_name);
+					$(o).html(actual_song_name);
+					$("#song").append(o);
+				}
+			}
+			actual_song_name = 'Default (14平米スーベニア by Koharu)';
+			var o = new Option(actual_song_name, actual_song_name);
+			$(o).html(actual_song_name);
+			$("#song").append(o);
+			if (document.getElementById("song")[0].value == "null"){
+				document.getElementById("song").remove(document.getElementById("song")[0]);
+			}
+		}
+
 		function grayOut(){
-			var song_names = document.getElementsByName("song");
-			for (i=1;i<song_names.length+1;i++) {
-				if (document.getElementById('song' + i).checked) {
-					song_name = document.getElementById('song' + i).value;
-				};
-			};
+			var songs = document.getElementById("song");
+			var song = songs.options[songs.selectedIndex].value;
 			//bandaid fix, todo-> to implement function that checks catalog for number of singers in a song 
-			if (song_name == "夢をのぞいたら（for BEST3 VERSION）"|| song_name == "とんでいっちゃいたいの") {
+			if (song == "夢をのぞいたら（for BEST3 VERSION）"|| song == "とんでいっちゃいたいの") {
 				$("#idol1").attr("disabled", true);
 				$("#idol5").attr("disabled", true);
 			}

@@ -9,15 +9,31 @@
 	#idol-selector {
 		display: grid;
 		grid-template-columns: repeat(5,100px);
-		
 		justify-content: center;
 	}
 	
+	.idol-select {
+		width: 100%;
+	}
+
+	.song-select {
+		width: 100%;
+		background: pink;
+	}
+
+	#song-submit {
+		display: grid;
+		grid-template-columns: 400px 100px;
+		justify-content: center;
+	}
+
+	#Go{
+		width: 100%;
+		background: #90ee90;
+	}
 
 	img {
 	width: 100%;
 	filter: grayscale(0%)
-}	
-	select {
-		width: 100%;
 	}
+
