@@ -187,6 +187,7 @@
 			if (document.getElementById("song")[0].value == "null"){
 				document.getElementById("song").remove(document.getElementById("song")[0]);
 			}
+			grayOut()
 		}
 
 		function grayOut(){
