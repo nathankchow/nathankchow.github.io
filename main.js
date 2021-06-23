@@ -36,8 +36,34 @@
 					$('#idol' + wrong_index).val(item[0].toUpperCase() + item.slice(1)).change();
 				}
 			})
-			
+			imageControl()
 		}
+
+		function imageControl() {
+			var idol1s = document.getElementById("idol1");
+			var idol1 = idol1s.options[idol1s.selectedIndex].value.toLowerCase();
+
+			var idol2s = document.getElementById("idol2");
+			var idol2 = idol2s.options[idol2s.selectedIndex].value.toLowerCase();
+
+			var idol3s = document.getElementById("idol3");
+			var idol3 = idol3s.options[idol3s.selectedIndex].value.toLowerCase();
+
+			var idol4s = document.getElementById("idol4");
+			var idol4 = idol4s.options[idol4s.selectedIndex].value.toLowerCase();
+
+			var idol5s = document.getElementById("idol5");
+			var idol5 = idol5s.options[idol5s.selectedIndex].value.toLowerCase();
+
+			document.getElementById("img1").src="./images/" + idol1 + ".png";
+			document.getElementById("img2").src="./images/" + idol2 + ".png";
+			document.getElementById("img3").src="./images/" + idol3 + ".png";
+			document.getElementById("img4").src="./images/" + idol4 + ".png";
+			document.getElementById("img5").src="./images/" + idol5 + ".png";
+
+
+		}
+
 
 		function setYoutubeVideo() {
 			//from https://stackoverflow.com/questions/23762822/javascript-loading-csv-file-into-an-array
