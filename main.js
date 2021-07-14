@@ -108,7 +108,7 @@
 			}
 			
 			//band-aid fix for 3-idol songs for convenience, will rewrite for efficiency if necessary 
-			if (youtubeId == 'F5o494pRTPs') {
+			if (youtubeId == 'zvXS4TFhKvU') {
 				var youtube_title = "デレステ " + song + " " + idol2 + " " + idol3 + " " + idol4; 
 				for (i=0;i<data.length;i++) {
 				
@@ -122,7 +122,7 @@
 				}
 			}
 
-			if (youtubeId == 'F5o494pRTPs') {
+			if (youtubeId == 'zvXS4TFhKvU') {
 				var youtube_title = "デレステ " + song + " " + idol2 + " " + idol3; //and for 2-idol songs  
 				for (i=0;i<data.length;i++) {
 				
