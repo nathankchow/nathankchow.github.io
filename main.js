@@ -180,7 +180,7 @@
 					$("#song").append(o);
 				}
 			}
-			actual_song_name = 'Default (14平米スーベニア by Koharu)';
+			actual_song_name = 'Default (14平米にスーベニア by Koharu)';
 			var o = new Option(actual_song_name, actual_song_name);
 			$(o).html(actual_song_name);
 			$("#song").append(o);
@@ -222,6 +222,7 @@
 			for (i=name_counter; i<5;i++){
 				greyIndividual(order[i],true)
 			}
+			changeOriginalSingers();
 
 		}
 
@@ -233,5 +234,31 @@
 		else{
 			$("#idol" + number).attr("disabled", false);
 			$("#img" + number).css("filter", "grayscale(0%)");
+		}
+	}
+
+	function changeOriginalSingers() {
+		var originalSingers = {
+			"none":[" "," "," "," "," "],
+			"つぼみ": ["相葉夕美","前川みく","塩見周子","高垣楓","一ノ瀬志希"],
+			"心もよう":[" ","渋谷凛","島村卯月","本田未央"," "]
+		}
+		var songs = document.getElementById("song");
+		var target_song_name = songs.options[songs.selectedIndex].value;
+		for (i=0;i<originalSingers["none"].length;i++) {
+			$('#originalDiv' + (i+1)).text(originalSingers["none"][i])
+		}
+		if (originalSingers.hasOwnProperty(target_song_name)) {
+			for (i=0;i<originalSingers[target_song_name].length;i++) {
+				$('#originalDiv' + (i+1)).text(originalSingers[target_song_name][i])
+			}
+		}
+
+		}
+	
+
+	function setOriginalSingers(singerList) {
+		for (i=0;i<singerList.length;i++) {
+			$('#original' + (i+1)).text(singerList[i])
 		}
 	}
