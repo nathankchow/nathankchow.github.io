@@ -150,6 +150,7 @@
 				dataType: "text",
 			});
 
+
 			//initialize an array containing all idol names
 			var idol_names = ['arisu','koharu','yoshino','yukimi','yumi'];
 
@@ -238,27 +239,52 @@
 	}
 
 	function changeOriginalSingers() {
-		var originalSingers = {
-			"none":[" "," "," "," "," "],
-			"つぼみ": ["相葉夕美","前川みく","塩見周子","高垣楓","一ノ瀬志希"],
-			"心もよう":[" ","渋谷凛","島村卯月","本田未央"," "]
-		}
+
+		$.ajax({
+			url: "https://raw.githubusercontent.com/nathankchow/nathankchow.github.io/master/originalIdols.json",
+			async: false,
+			success: function (data2) {
+			originalSingers = data2;
+			},
+			dataType: "json",
+		});
+
+		$.ajax({
+			url: "https://raw.githubusercontent.com/nathankchow/nathankchow.github.io/master/idolAtt.json",
+			async: false,
+			success: function (data3) {
+			attributes = data3;
+			},
+			dataType: "json",
+		});
+
 		var songs = document.getElementById("song");
 		var target_song_name = songs.options[songs.selectedIndex].value;
-		for (i=0;i<originalSingers["none"].length;i++) {
-			$('#originalDiv' + (i+1)).text(originalSingers["none"][i])
+
+		if (originalSingers.hasOwnProperty(target_song_name) == false) {
+		var	target_song_name = "夕映えプレゼント" //dummy name to trigger no names
 		}
-		if (originalSingers.hasOwnProperty(target_song_name)) {
-			for (i=0;i<originalSingers[target_song_name].length;i++) {
-				$('#originalDiv' + (i+1)).text(originalSingers[target_song_name][i])
+		for (i=0;i<originalSingers[target_song_name].length;i++) {
+			$('#originalDiv' + (i+1)).text(originalSingers[target_song_name][i])
+			if (attributes.hasOwnProperty(originalSingers[target_song_name][i])) {
+				switch(attributes[originalSingers[target_song_name][i]]) {
+					case 'cute':
+						$("#originalDiv" + (i+1)).css("background-color","#fc94af");
+						break;
+					case 'cool':
+						$("#originalDiv" + (i+1)).css("background-color","#94cafc");
+						break;
+					case 'passion':
+						$("#originalDiv" + (i+1)).css("background-color","#fcee94");
+						break;
+				}
+				
+			}
+			else {
+				$("#originalDiv" + (i+1)).css("background-color","rgb(169,169,169)")
 			}
 		}
+		
 
-		}
-	
-
-	function setOriginalSingers(singerList) {
-		for (i=0;i<singerList.length;i++) {
-			$('#original' + (i+1)).text(singerList[i])
-		}
 	}
+	

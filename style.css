@@ -20,9 +20,10 @@
 		justify-content: center;
 		background-color:gray;
 		color:#222222;
+		font-size: 14px;
 		
 	}
-
+	/*
 	#originalDiv2{
 		background-color: #94cafc;
 	}
@@ -32,6 +33,7 @@
 	#originalDiv4{
 		background-color: #fcee94;
 	}
+	*/
 
 	.idol-select {
 		width: 100%;
