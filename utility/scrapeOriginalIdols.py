@@ -1,6 +1,11 @@
 #Scrapes imascg-slstage-wiki.gamerch.com for original idol names of the specified song
 
-import requests, os, bs4, time, random
+import requests
+import os
+import bs4
+import time
+import random
+
 def scrapeOriginalIdols(songname, write=True):
     print(songname)
     #specify url
