@@ -222,19 +222,17 @@ function loadSoloSongs(){
 }
 
 function importSoloSongs() {
-	/*
+	
 	$.ajax({
-		url: 'google.com',
+		url: 'https://raw.githubusercontent.com/nathankchow/nathankchow.github.io/master/solo_catalog.csv',
 		async: false,
 		success: function (csvd) {
 		data = $.csv.toArrays(csvd);
 		},
 		dataType: "text",
 	});
-	*/
-	data = [" ","デレステ 14平米にスーベニア koharuCD,zvXS4TFhKvU",
-	 "デレステ 15平米にスーベニア koharu1,zv",
-	 "デレステ 16平米にスーベニア koharuSSB,zv"]; //debugging
+	
+
 	solo_song_names = [[],[],[],[],[]];
 	var j;
 	var idolname;
