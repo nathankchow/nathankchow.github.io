@@ -15,7 +15,7 @@
 
 	<div id="video-player">
 
-		<iframe width="1024" height="576" allow="fullscreen;"
+		<iframe width="960" height="540" allow="fullscreen;"
 			id = "embed-video" src="https://www.youtube.com/embed/zvXS4TFhKvU">
 		</iframe>
 
@@ -110,6 +110,13 @@
 		<div id="submit-button">
 			<input id="Go" type="button" value="Go" onclick="setYoutubeVideo()"/>
 		</div>
+	</div>
+
+	<div id="mode-select">
+		<input type="radio" id="groupmode" name="mode" value="groupmode" checked=true onchange="loadGroupSongs()">
+		<label for="groupmode">Group Mode</label>
+		<input type="radio" id="solomode" name="mode" value="solomode" onchange="loadSoloSongs()">
+		<label for="solomode">Solo Mode</label>
 	</div>
 
 	<footer>

@@ -36,7 +36,7 @@ def scrapeOriginalIdols(songname, write=True):
         print(originalIdolList)
         file.write(f'''"{songname}": [{', '.join(originalIdolList)}],\n''')
         #expected output for kokoro moyou: ['---', '渋谷凛', '島村卯月', '本田未央', '---']
-        time.sleep(3 + random.random() * 4) #randomized delay so http requests seem humanlike
+        time.sleep(3 + random.random() * 4) #randomized delay for humanlike behavior
     
 
 if __name__ == '__main__':
