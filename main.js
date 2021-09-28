@@ -242,14 +242,16 @@ function importSoloSongs() {
 	var separated;
 	var idol;
 	for (i=1;i<data.length;i++) { //skip first entry in csv (labels)
-		separated = data[i].split(',');
-		id = separated[1];
-		separated = separated[0].split(' ');
+		separated = data[i][0];
+		id = data[i][1];
+
+		separated = separated.split(' ');
 		idol = separated[separated.length - 1];
+
 		separated = separated.slice(1,separated.length-1); //omit first word (deresute) and idolname 
 		
 		for (j=0;j<idol.length;j++) {
-			if (idol[j] != idol[j].toLowerCase()) {
+			if (idol[j] == idol[j].toUpperCase()) {
 				idolname = idol.slice(0,j);
 				costume = idol.slice(j,idol.length);
 				break
@@ -266,6 +268,8 @@ function importSoloSongs() {
 		else {
 			separated.push("(Undefined)");
 		}
+
+
 		title = separated.join(' ');
 		solo_song_names[IDOL_NAMES.indexOf(idolname)].push([title,id]);
 	}
